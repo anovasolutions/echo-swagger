@@ -170,13 +170,13 @@ func EchoWrapHandler(options ...func(*Config)) echo.HandlerFunc {
 				_ = index.Execute(pw, config)
 			}()
 			return c.Stream(http.StatusOK, "text/html; charset=utf-8", pr)
-		case "doc.json":
+		case "doc.json", "swagger.json":
 			doc, err := swag.ReadDoc(config.InstanceName)
 			if err != nil {
 				return c.String(http.StatusInternalServerError, err.Error())
 			}
 			return c.String(http.StatusOK, doc)
-		case "doc.yaml":
+		case "doc.yaml", "swagger.yaml":
 			jsonString, err := swag.ReadDoc(config.InstanceName)
 			if err != nil {
 				return c.String(http.StatusInternalServerError, err.Error())
